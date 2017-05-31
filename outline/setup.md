@@ -64,7 +64,7 @@ Open the file `playground/src/playground/core.clj` in LightTable.
 
 ## Light Table convenience settings
 
-The following setting are optional, but can make LightTable easier to use for Clojure.  If you want all the settings, simply copy the example User Behaviour file at the end of this section.
+The following setting are optional, but can make LightTable easier to use for Clojure.
 
 To add a setting, edit the User Behaviour file as follows:
 
@@ -74,36 +74,50 @@ To add a setting, edit the User Behaviour file as follows:
 This opens the User Behaviours file for editing.  When you save the file, `Ctrl-s`, changes are applied immediately.  Add any of the following options you wish:
 
 **Open Workspace on startup**
+
 Show the workspace browser when you run LightTable, so you can see all the projects you have added and open files easily.
+
 > `[:app :lt.objs.sidebar.workspace/workspace.open-on-start]`
 
+**automatic closing of characters**
 
-**automatic closing of parentesses**
-[Enabling auto-closing parens.](http://stackoverflow.com/questions/27818505/light-table-parentheses-are-not-auto-closing) - not recommended for non-English keyboard layouts
-> `[:app :lt.objs.settings/pair-keymap-diffs]`
+Auto-close characters, so when you type an opening `{`, `[` or `(` you automatically get a closing `)`, `]` or `}`.
 
+> `[:editor :lt.objs.editor/autoclose-brackets]`
 
 **show line numbers**
+
+Show line numbers on the left hand side of the editor
+
 > `[:editor :lt.objs.editor/line-numbers]`
 
 **don't wrap lines**
+
 Dont wrap a line of text around if they are to long for the screen:
+
 > `[:editor :lt.objs.editor/no-wrap]`
 
 
+For more on configuring behaviors see [behaviour & keymap configuration](https://github.com/LightTable/LightTable/blob/master/doc/behavior-and-keymap-configuration.md).
+
+
 **Sample User Behaviours file**
+
+If you want all the settings, simply copy the example User Behaviour file at the end of this section.
+
 ```
 [
  ;; The app tag is kind of like global scope. You assign behaviors that affect
  ;; all of Light Table to it.
  [:app :lt.objs.style/set-skin "dark"]
  [:app :lt.objs.plugins/load-js "user_compiled.js"]
+ [:app :lt.objs.sidebar.workspace/workspace.open-on-start]
 
  ;; The editor tag is applied to all editors
  [:editor :lt.objs.editor/no-wrap]
  [:editor :lt.objs.style/set-theme "default"]
- [:editor :lt.objs.style/font-settings "Sans" 16 1.2]
- [:app :lt.objs.settings/pair-keymap-diffs]
+ [:editor :lt.objs.style/font-settings "Sans" 12]
+ [:editor :lt.objs.editor/autoclose-brackets]
  [:editor :lt.objs.editor/line-numbers]
 
  ;; Here we can add behaviors to just clojure editors
