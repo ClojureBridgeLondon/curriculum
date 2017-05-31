@@ -27,6 +27,41 @@ Choose your operating system to get setup instructions:
 * [Windows 8](setup_win8.md)
 * [Ubuntu Linux](setup_ubuntu.md)
 
+Once this is done, please also install the Instarepl plugin and create a Clojure project, as described in the next two sections
+
+## Add the LightTable Instarepl plugin
+
+In LightTable, open the menu: _view_ > _Commands_ or use `Ctrl-Space` or `Cmd-Space` keyboard shortcut
+
+In the command window, type **plugin** and select _Plugins: Show plugin manager_
+
+![Commands: Plugins: Show plugin manager](img/lighttable-plugin-command-list.png)
+
+In the plugins manager, select the _Available_ button and type _Instarepl_.  Press the _Enter_ key to search for the plugin
+
+![Plugin manager: Available Plugins: ClojureInstarepl](img/lighttable-plugin-clojureinstarepl-available.png)
+
+On the _ClojureInstarepl_ plugin, click _Install_.
+
+Run the Instarepl via the menu: _View_ > _Commands_ and type **Instarepl**.  Select _Instarepl: Open a clojure Instarepl
+
+![Instarepl: Open a clojure Instarepl](img/lighttable-command-instarepl.png)
+
+## Create a Clojure project
+
+Create a new project to practice what you are learning about Clojure:
+
+Open a command line terminal and run the following command:
+
+```bash
+lein new playground
+```
+
+This command creates a new folder called `playground` that contains your new Clojure project.
+
+Open the file `playground/src/playground/core.clj` in LightTable.
+
+
 ## Light Table convenience settings
 
 The following setting are optional, but can make LightTable easier to use for Clojure.  If you want all the settings, simply copy the example User Behaviour file at the end of this section.
