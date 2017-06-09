@@ -39,7 +39,7 @@ Flow Control
 #### Testing conditions to react <button class="link" ng-bind-html="details" ng-model="block12" ng-click="block12=!block12"></button>
 
 > Software is also full of these decisions. *If* the user's input is
-> valid, *then* we should save her data; *otherwise* we show an error
+> valid, *then* we should save their data; *otherwise* we show an error
 > message. The common pattern here is that you test some condition and
 > react differently based on whether the condition is *true* or *false*.
 {: ng-show="block12" .description}
@@ -49,52 +49,25 @@ Flow Control
 ### `if`
 {: .slide_title .slide}
 
-<button class="link" ng-bind-html="details1" ng-model="block21"
-ng-click="block21=!block21"></button>
-<button class="link" ng-bind-html="details2" ng-model="block22" ng-click="block22=!block22"></button>
+<button class="link" ng-bind-html="details" ng-model="block21" ng-click="block21=!block21"></button>
 
 > In Clojure, the most basic tool we have for the flow control is the `if`
-> operator. Here's the example how you might code the data validation scenario.
+> operator. It allows you to choose between two options depending upon a condition.
 {: ng-show="block21" .description}
 
-> Here' an example. If adding 40 to `y` is still less than 150, then
-> return `(+ y 40)`; otherwise, returns -150. (As for turtle app's
-> frame, the top has 150 in y, while the bottom has -150 in y.)
-{: ng-show="block22" .description}
-
 > Reference: [Conditional `if`](http://clojurebridge.github.io/community-docs/docs/clojure/if/)
-{: ng-show="block22" .description}
+{: ng-show="block21" .description}
 
 ```clojure
-(if (< (+ y 40) 150)
-  (+ y 40)
-  -150))
+(if (< age legal-drinking-age)
+  ["water" "soda"]
+  ["water" "soda" "beer" "wine"])
 ```
-</section>
-
-<section ng-controller="NarrativeController">
-#### General form of `if` operator
 
 ```clojure
 (if conditional-expression
   expression-to-evaluate-when-true
   expression-to-evaluate-when-false)
-```
-</section>
-
-<section ng-controller="NarrativeController">
-#### `if` examples
-
-```clojure
-(if (> 3 1)
-  "3 is greater than 1"
-  "3 is not greater than 1")
-;=> "3 is greater than 1"
-
-(if (> 1 3)
-  "1 is greater than 3"
-  "1 is not greater than 3")
-  ;=> "1 is not greater than 3"
 ```
 </section>
 
@@ -115,12 +88,16 @@ ng-click="block21=!block21"></button>
   "A string is considered true"
   "A string is not considered true")
 ;=> "A string is considered true"
+```
 
+```clojure
 (if nil
   "nil is considered true"
   "nil is not considered true")
 ;=> "nil is not considered true"
+```
 
+```clojure
 (if (get {:a 1} :b)
   "expressions which evaluate to nil are considered true"
   "expressions which evaluate to nil are not considered true")
@@ -129,28 +106,46 @@ ng-click="block21=!block21"></button>
 </section>
 
 <section>
-#### EXERCISE 1: Y value within a frame
+#### EXERCISE 1:
 {: .slide_title .slide}
 
-* Write a function `y-within-frame` that takes y (vertical position) as an argument.
-* You may use if example in the slide.
-* The function should return the y value that won't exceed 150.
-
-    - See: [x and y in absolute values](https://github.com/ClojureBridge/welcometoclojurebridge/blob/master/outline/TURTLE.md#x-and-y-in-absolute-values)
+* write a function `ordinal` that takes a number `n` as an argument
+* start from the template on this slide
+* if `n` equals `1`, then the function should return `"1st"`, otherwise it should return the number + `"th"`
+* you will have to use the [`str`](http://clojurebridge-berlin.github.io/community-docs/docs/clojure/str/) function
+* don't worry yet about "2nd" or "3rd"
 
 ```clojure
-;; if example
-(if (< (+ y 40) 150)
-  (+ y 40)
-  -150))
+(defn ordinal [n]
+  (if ;; condition
+      ;; then
+      ;; else
+  ))
 ```
 
 ```clojure
-;; usage of y-within-frame function
-(y-within-frame 80)    ;=> 120
-(y-within-frame 180)   ;=> -150
+;; usage of ordinal function
+(ordinal 1)    ;=> "1st"
+(ordinal 5)    ;=> "5th"
 ```
 </section>
+
+<section>
+#### EXERCISE 2:
+{: .slide_title .slide}
+
+* extend the `ordinal` function to correctly generate "2nd" and "3rd"
+* hint: you can use an `if` inside another `if`
+
+```clojure
+;; usage of the new ordinal function
+(ordinal 1)    ;=> "1st"
+(ordinal 2)    ;=> "2nd"
+(ordinal 3)    ;=> "3rd"
+(ordinal 4)    ;=> "4th"
+```
+</section>
+
 
 <section ng-controller="NarrativeController">
 ### `cond`
@@ -165,22 +160,27 @@ ng-click="block21=!block21"></button>
 > To branch to multiple situations, `cond` operator works well.
 {: ng-show="block61" .description}
 
-> Here's the example. If adding 40 to y exceeds 150, evaluate the
-> first form. In this case, it returns -150. If adding 40 to y is less
-> than -150, evaluate the second form. In this case, it returns 150.
-> If both two predicates return false, evaluate the `:else` form. In
-> this case, it returns y plus 40. If we use this function in the
-> turtle app, we can keep our turtle between top and bottom of the frame.
-{: ng-show="block62" .description}
-
 > Reference: [Conditional `cond`](http://clojurebridge.github.io/community-docs/docs/clojure/cond/)
 {: ng-show="block62" .description}
 
 ```clojure
+(if (= n 1)
+  "1st"
+  (if (= n 2)
+    "2nd"
+    (if (= n 3)
+      "3rd"
+      (str n "th"))))
+```
+
+In this case `cond` comes in handy.
+
+```clojure
 (cond
-  (> (+ y 40) 150) -150
-  (< (+ y 40) -150) 150
-  :else (+ y 40)))
+  (= n 1) "1st"
+  (= n 2) "2nd"
+  (= n 3) "3rd"
+  :else   (str n "th"))
 ```
 </section>
 
@@ -192,44 +192,75 @@ ng-click="block21=!block21"></button>
   predicate1 expression-to-evaluate-when-predicate1-is-true
   predicate2 expression-to-evaluate-when-predicate2-is-true
   ...
-  :else expression-to-evaluate-when-all-above-are-false)
+  :else      expression-to-evaluate-when-all-above-are-false)
 ```
 </section>
 
-<section>
-#### EXERCISE 2: Y value within a frame - part 2
-{: .slide_title .slide}
-
-> The function we wrote in the previous exercise, `y-within-frame`, has
-> a flaw. If the given y value is -1000, the function will return -960.
-> Since y value of the frame bottom is -150, -960 is beyond that.
-> Your turtle will go invisible area. Let's make it real within-frame
-> function using `cond`.
-
-* Write a function `y-within-frame-cond` that takes y (vertical position) as an argument.
-* You may use `cond` example in the slide.
-* The function should return the y value between -150 and 150.
-
-    - See: [x and y in absolute values](https://github.com/ClojureBridge/welcometoclojurebridge/blob/master/outline/TURTLE.md#x-and-y-in-absolute-values)
+<section ng-controller="NarrativeController">
+#### `cond` example
 
 ```clojure
-;; usage of y-within-frame-cond function
-(y-within-frame-cond 200)    ;=> -150
-(y-within-frame-cond -200)   ;=> 150
-(y-within-frame-cond 0)      ;=> 40
+(cond
+  (< x 10)    "x is smaller than 10"
+  (< 10 x 20) "x is between 10 and 20"
+  (< 20 x 30) "x is between 20 and 30"
+  (< 30 x 40) "x is between 30 and 40"
+  :else       "x is bigger than 40")
 ```
+
 </section>
 
 <section>
-#### EXERCISE 3 [BONUS]: Shoe Size Mapping
+#### EXERCISE 3 [BONUS]: Temperature conversion with `cond`
 {: .slide_title .slide}
 
-|Suppose you are traveling abroad..<br/> (chart: www.jcpenney.com )| ![shoe size](img/shoe_size_chart_womens.png)|
+Write a function that can convert degrees Celcius, Fahrenheit, or Kelvin to Celcius
 
-1. pick up some of sets from the table, for example, us 6 and 9
-2. write mapping using `cond` (us 6 -> less than or equal to euro 36)
-3. write a function, for example, `us-to-euro` with one argument
-4. use `cond` you wrote at step 2 to complete the function
+Here is how it should work
+
+``` clojure
+(to-celcius 32.0 :F)         ;=> 0.0
+(to-celcius 300 :K)          ;=> 26.85
+(to-celcius 22.5 :C)         ;=> 22.5
+(to-celcius 22.5 :gibberish) ;=> "Unknown scale: :gibberish"
+```
+
+Starting point:
+
+``` clojure
+(defn to-celcius [degrees scale]
+  (cond
+    ;; ...
+    ))
+```
+
+Formulas:
+
+* (°F  -  32)  x  5/9 = °C
+* °K + 273.15 = °C
+</section>
+
+<section>
+#### EXERCISE 3: Solution
+{: .slide_title .slide}
+
+Write a function that can convert degrees Celcius, Fahrenheit, or Kelvin to Celcius
+
+``` clojure
+(defn to-celcius [degrees scale]
+  (cond
+    (= scale :C) degrees
+    (= scale :F) (* (- degrees 32) 5/9)
+    (= scale :K) (- degrees 273.15)
+    :else        (str "Unknown scale: " scale)))
+```
+
+``` clojure
+(to-celcius 32.0 :F)         ;=> 0.0
+(to-celcius 300 :K)          ;=> 26.85
+(to-celcius 22.5 :C)         ;=> 22.5
+(to-celcius 22.5 :gibberish) ;=> "Unknown scale: :gibberish"
+```
 </section>
 
 <section ng-controller="NarrativeController">

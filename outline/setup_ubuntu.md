@@ -6,7 +6,7 @@ Ubuntu Setup
 * Configure Git
 * Make sure Java is installed
 * Install Leiningen
-* Install Light Table
+* Install Nightcode
 * Test your setup
 
 ## Starting a terminal
@@ -27,7 +27,7 @@ See if you already have Git installed with `git version`.
 If the `git` command is not found, install it with this command in the terminal:
 
 ```bash
-sudo apt-get install git`
+sudo apt-get install git
 ```
 
 ## Configure Git
@@ -87,42 +87,28 @@ export PATH=$PATH:/usr/local/bin
 
 After you run the above commands, run the `lein version` command. It should take a while to run, as it will download some resources it needs the first time. If it completes successfully, you are golden! If not, ask an instructor for help.
 
-## Install Light Table
+## Install Nightcode
 
-LightTable is only available for 64-bit version of Ubuntu (or you can [build it from source](https://github.com/LightTable/LightTable) for 32-bit Linux).  To find out if you have 64-bit Ubuntu, click Dash Home and type Details. You should see a window like this:
+Go to the [Nightcode site](https://sekao.net/nightcode/). On the page there, you should see a link to download Nightcode, "Free Download(Version x.y.z)." Click the link and you will download a file, `nightcode-x.y.z-standalone.jar`. As of June 2016, the version is 1.3.1.
 
-![Ubuntu Version](img/ubuntu/ubuntu-version.png)
+![Nightcode downloads](img/nightcode-download.png)
 
-Alternatively, open your terminal and type `uname -m` if the output says "x86_64" you have a 64-bit OS, if it says "i686" you have a 32-bit OS.
+Once the download finished, we want to start the editor.
+To startup, go into your Downloads folder (or wherever you save files from your browser) and run the nightcode-x.y.z-standalone.jar file using `java` command.
 
-Go to the [Light Table site](http://www.lighttable.com/) and click the "Linux64" button and select the "Save file".
+Open a terminal and run the following commands:
 
-![Light Table downloads](img/light-table-download.png)
-![Light Table downloads Ubuntu](img/ubuntu/light-table-download.png)
+```bash
+cd ~/Downloads/
+java -jar nightcode-1.3.1-standalone.jar
+```
 
-Open up your terminal and cd to the directory where your downloads go `cd ~/Downloads`.
-Check to see that your file is there. `ls`
-Extract the compressed file `tar -xzf LightTableLinux64.tar.gz`
-Check to see that there is now a directory called LightTable `ls`
-Move the LightTable directory to "/usr/local/bin" `sudo mv LightTable /usr/local/bin`
-Set your path so you can launch LightTable from the command line `export PATH=$PATH:/usr/local/bin/LightTable`
-Launch LightTable `LightTable`
-
-If you want, you can create a launcher for Light Table. `sudo gnome-desktop-item-edit /usr/share/applications/ --create-new`
-You should see a window like this:
-
-![Create Icon](img/ubuntu/create_icon.png)
-
-Name the launcher LightTable. Type the path to the command `/usr/local/bin/LightTable/LightTable`. Click the icon. The LightTable icon can be found at `/usr/local/bin/LightTable/core/img/lticon.png`.
-
-### Opening files in Light Table from the command line *(optional)*
-
-If you'd prefer, you can open files/folders in LightTable from the command line by typing `light-table /path/to/the/file/you/want/to/open.clj`.
+![Nightcode](img/nightcode-startup.png)
 
 
 ## Testing your setup
 
-You have set up Java, Leiningen, Light Table, and Git on your computer--all the tools you will need for this course. Before starting, we need to test them out.
+You have set up Java, Leiningen, Nightcode, and Git on your computer--all the tools you will need for this course. Before starting, we need to test them out.
 
 #### Cloning out github repository
 
@@ -163,52 +149,70 @@ button on your keyboard together (abbreviated as Ctrl+D). This should
 take you out of the Clojure REPL and back to your normal terminal
 prompt. Then, the terminal will show you the following message: `user=> Bye for now!`
 
-#### Testing Light Table
+#### Testing Nightcode
 
-Now we will open and run the sample Clojure apps in Light Table, so start Light Table
+If Nightcode isn't started yet or closed, open it by typing the command on terminal:
 
-In Light Table, click on the menu "File" then choose "Open Folder." Find the
-directory, `welcometoclojurebridge`, which was created when you ran
-`git clone` command. Click "Upload." In the workspace menu on the
-left, click on `welcometoclojurebridge` - `src` -
-`welcometoclojurebridge` - `core.clj`. Double-click the `core.clj` file
-to open it. This is a Clojure program.
+```bash
+java -jar nightcode-1.3.1-standalone.jar
+```
 
-![Testing apps - welcome code](img/testing-welcome-app-code.png)
+At the bottom left of the screen, type `(+ 1 1)` into the window. It should look like the following image:
+
+<img src="img/nightcode-repl.png" alt="Testing Nightcode" width="500">
+
+If you see the result, 2, that worked, great!
 
 
-Click on the file contents and
-press the following key combination:
+### Testing apps
 
-<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>
+Now we will open and run the sample Clojure apps in Nightcode.
+On the top left corner, click "Import" then find the directory,
+`welcometoclojurebridge`, which was created when you ran
+`git clone` command. Click "Open."
+In the project directory tree on the left, click on `src` - `welcometoclojurebridge` - `core.clj`. The `core.clj` file will be opened on the right side.
+This is a Clojure program.
+
+<img src="img/nightcode-click-import.png" alt="Testing apps - click import" width="500">
+<img src="img/nightcode-open-project.png" alt="Testing apps - open welcometoclojurebridge" width="500">
+![Testing apps - core.clj](img/nightcode-welcometoclojurebridge-core.png)
+
+The next step is to run the code shown in the window.
+Click "Run with REPL" on the bottom of the right side.
+It may take a while.
+Eventually, repl will start and show a prompt on the bottom of the window.
+Once, you see the prompt, click "Reload" button.
+
+
+![Testing apps - start repl](img/nightcode-welcometoclojurebridge-run-with-repl.png)
+![Testing apps - repl started](img/nightcode-repl-started.png)
+![Testing apps - repl reload](img/nightcode-repl-reload.png)
+
 
 You should see a fun welcome message.
 
 ![Testing apps - welcome](img/testing-welcomeclojurebridge.png)
 
 
-Next, in the workspace menu on the left, click on
+Let's try one more sample.
+In the directory tree on the left, click on
 `welcometoclojurebridge` - `src` - `clojurebridge-turtle` -
-`walk.clj`. Double-click the core.clj file to open it.
+`walk.clj`. The `walk.clj` file will open on the right side.
+Like we did before, click "Reload" button.
 
-![Testing apps - walk code](img/testing-turtle-walk-code.png)
+![Testing apps - walk code](img/nightcode-turtle-walk.png)
+![Testing apps - walk reload](img/nightcode-turtle-walk-reload.png)
 
-press the following key combination:
 
-<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>
+An initial image of the turtles app should pop up.
+A small triangle on the center is the *turtle*.
 
-An initial image of the turtles app will pop up.
 
-Type `(forward 40)` at the end of the `walk.clj` and press the
-following combination:
+Type `(forward 40)` on the repl at the bottom of the window.
+You should see the turtle moved upword:
 
-<kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+![Testing apps - forward](img/nightcode-turtle-forward-40.png)
 
-You should see this on the Light Table:
-
-![Testing apps - forward](img/testing-turtle-forward.png)
-
-also, your turtle should move.
 
 > Pressing the Control button and Space Bar together (abbreviated `Ctrl+Space`) is how you start giving Light Table a command. 
 
@@ -217,3 +221,7 @@ also, your turtle should move.
 
 Congratulations! You have opened and run your first Clojure apps, and
 your install and setup are all completed!
+
+If you want to know what the turtle (*a small triangle*) can do,
+see [Turtle App API](https://github.com/ClojureBridge/welcometoclojurebridge/blob/master/outline/TURTLE.md) and
+[How to Walk Turtles](https://github.com/ClojureBridge/welcometoclojurebridge/blob/master/outline/TURTLE-SAMPLES.md) for more information.

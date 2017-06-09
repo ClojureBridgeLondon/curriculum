@@ -84,31 +84,17 @@ collections together.
 </section>
 
 <section ng-controller="NarrativeController">
-#### Example <button class="link" ng-bind-html="details" ng-model="block41" ng-click="block41=!block41"></button>
-
-> When there are a couple of turtles,
-> `(turtle-names)` command will return turtle names in the form of a
-> vector.
-{: ng-show="block41" .description}
-
-```clojure
-(turtle-names)
-;=> [:trinity :neo :oracle :cypher]
-```
-</section>
-
-
-<section ng-controller="NarrativeController">
 #### Creation <button class="link" ng-bind-html="details" ng-model="block61" ng-click="block61=!block61"></button>
 
-> The next two functions are used to make new vectors. The `vector`
-> function takes any number of items and puts them in a new vector.
-> `conj` is an interesting function that you'll see used with all the
-> data structures. With vectors, it takes a vector and an item and
-> returns a new vector with that item added to the end of the vector.
-> Why the name `conj`? `conj` is short for conjoin, which means to 
-> join or combine. This is what we're doing: we're joining the new
-> item to the vector.
+> Instead of writing a vector with square brackets, you can also use the vector
+> function to create a vector. All arguments are collected and placed inside a new
+> vector.
+>
+> `conj` takes a vector and some other values, and returns a new vector with the
+> extra value added. `conj` is short for conjoin, which means to join or combine.
+> This is what we're doing: we're joining the extra value to the vector. `conj`
+> can be used with any kind of collection. Right now the only kind of
+> collection we've encountered is a vector.
 {: ng-show="block61" .description}
 
 ```clojure
@@ -146,21 +132,10 @@ be confusing.
 </section>
 
 <section>
-#### EXERCISE 1: See turtle names
+#### EXERCISE: Make a vector
 {: .slide_title .slide}
 
-* Go to `walk.clj` file
-* Type `(add-turtle :neo)` and evaluate this line by hitting Cmd +
-  Enter or Ctrl + Enter (no shift key)
-* Repeat adding turtles a couple of times with different names
-* Type `(turtle-names)`, evaluate this line and see the result
-</section>
-
-<section>
-#### EXERCISE 2: Make a vector
-{: .slide_title .slide}
-
-* Go to insta-REPL
+* Go to your REPL
 * Make a vector of the high temperatures for the next 7 days in the
   town where you live.
 * Then use the `nth` function to get the high temperature for next
@@ -205,21 +180,6 @@ be confusing.
 </section>
 
 <section ng-controller="NarrativeController">
-#### Example <button class="link" ng-bind-html="details" ng-model="block103" ng-click="block103=!block103"></button>
-
-> When turtle received commands such that `forward` or `right`,
-> those return the result as a form of map of map.
-{: ng-show="block103" .description}
-
-```clojure
-(forward 40)
-;=> {:trinity {:length 40}}
-(right 90)
-;=> {:trinity {:angle 90}}
-```
-</section>
-
-<section ng-controller="NarrativeController">
 #### Creation <button class="link" ng-bind-html="details" ng-model="block104" ng-click="block104=!block104"></button>
 
 > `assoc` and `dissoc` are paired functions: they associate and disassociate items from a map. See how we add the last name "Brown" to the map with `assoc`, and then we remove it with `dissoc`. `merge` merges two maps together to make a new map.
@@ -255,13 +215,13 @@ be confusing.
 (count {:first "Sally" :last "Brown"})
 ;=> 2
 
-(:first {:first "Sally" :last "Brown"})
+(get {:first "Sally" :last "Brown"} :first)
 ;=> "Sally"
-(:last {:first "Sally"})
+(get {:first "Sally"} :last)
 ;=> nil
 
 
-(:last {:first "Sally"} :MISS)
+(get {:first "Sally"} :last :MISS)
 ;=> :MISS
 ```
 </section>
@@ -289,24 +249,26 @@ be confusing.
 > After the creation, we want to save a new value associated to the
 > key. The `assoc` function can be used by assigning a new value to
 > the existing key.
-> Also, there's handy function `update-in`. The function takes map and
-> a key or list of keys with a function. The value of specified key will be the
-> first argument of the given function.
+> Also, there's handy function `update`. The function takes map and
+> a key with a function. The value of specified key will be the first
+> argument of the given function.
+> The `update-in` function works like `update`, but takes a vector of keys
+> to update at a path to a nested map.
 {: ng-show="block110" .description}
 
 ```clojure
 (def hello {:count 1 :words "hello"})
 
-(update-in hello [:count] inc)
+(update hello :count inc)
 ;=> {:count 2, :words "hello"}
-(update-in hello [:words] str ", world")
-{:count 1, :words "hello, world"}
+(update hello :words str ", world")
+;=> {:count 1, :words "hello, world"}
 
 
 (def mine {:pet {:age 5 :name "able"}})
 
 (update-in mine [:pet :age] - 3)
-{:pet {:age 2, :name "able"}}
+;=> {:pet {:age 2, :name "able"}}
 ```
 </section>
 
@@ -327,82 +289,42 @@ be confusing.
 #### Vector of Maps
 
 ```clojure
-(state-all)
-;=> [{:trinity {:x -1.7484556000744965E-6, :y 39.99999999999996, :angle 90, :color [106 40 126]}}
-{:neo {:x 21.213202971967114, :y 21.213203899225725, :angle 45, :color [0 64 0]}}
-{:oracle {:x -49.99999999999981, :y -4.3711390001862375E-6, :angle 180, :color [43 101 236]}}]
+(def characters
+  [{:name "Snoopy"
+    :species "dog"}
+   {:name "Woodstock"
+    :species "bird"}
+   {:name "Charlie Brown"
+    :species "human"}])
 
-(def states (state-all))
-;=> #'clojurebridge-turtle.walk/states
+(:name (first characters))
+;;=> "Snoopy"
 
-(first states)
-;=> {:trinity {:x -1.7484556000744965E-6, :y 39.99999999999996,
-:angle 90, :color [106 40 126]}}
-```
-</section>
-
-<section>
-#### Map of Maps
-
-```clojure
-(def st (first states))
-;=> #'clojurebridge-turtle.walk/st
-
-st
-;=> {:trinity {:x -1.7484556000744965E-6, :y 39.99999999999996, :angle
-90, :color [30 30 30]}}
-
-(:trinity st)
-;=> {:x -1.7484556000744965E-6, :y 39.99999999999996, :angle 90, :color [30 30 30]}
-
-(get-in st [:trinity :angle])
-;=> 90
+(map :name characters)
+;;=> ("Snoopy" "Woodstock" "Charlie Brown")
 ```
 </section>
 
 
 <section>
-#### EXERCISE 3: See turtles states
+#### EXERCISE: Modeling Yourself
 {: .slide_title .slide}
 
-* Go to `walk.clj` file
-* Try examples of previous two slides
-* See what values you get
-
-> Every time you write a line of code,
-> hit <kbd>Ctrl</kbd> + <kbd>Enter</kbd> or <kbd>Cmd</kbd> +
-> <kbd>Enter</kbd> (no shift key) to evaluate it one by one.
-
-```clojure
-(state-all)
-(def states (state-all))
-(first states)
-(def st (first states))
-st
-(:trinity st)
-(get-in st [:trinity :angle])
-```
-</section>
-
-<section>
-#### EXERCISE 4: Modeling Yourself
-{: .slide_title .slide}
-
-* Go to insta-REPL
+* Using the Clojure REPL
     - (Option) You may create a new file and write code in the file. To
-    evaluate, paste code block on `lein repl`
+    evaluate, select the code you want and hit <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>x</kbd> or <kbd>cmd</kbd> <kbd>shift</kbd> + <kbd>x</kbd>, or press the "Eval" button
 * Make a map representing yourself
 * Make sure it contains your first name and last name
 * Then, add your hometown to the map using [assoc](http://grimoire.arrdem.com/1.6.0/clojure.core/assoc/) or [merge](http://grimoire.arrdem.com/1.6.0/clojure.core/merge/).
 </section>
 
 <section>
-#### EXERCISE 5 [BONUS]: Modeling your classmates
+#### EXERCISE [BONUS]: Modeling your classmates
 {: .slide_title .slide}
 
 * First, take the map you made about yourself in previous exercise.
 * Then, create a vector of maps containing the first name, last name and hometown of two or three other classmates around you.
-* Lastly, add your map to their information using [conj](http://grimoire.arrdem.com/1.6.0/clojure.core/conj/).
+* Lastly, add your map to their information using [conj](http://clojuredocs.org/clojure.core/conj).
 </section>
 
 {% comment %}

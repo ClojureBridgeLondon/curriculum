@@ -38,79 +38,6 @@ Simple Values
 </section>
 
 <section ng-controller="NarrativeController">
-### Strings
-{: .slide_title .slide}
-
-#### <button class="link" ng-bind-html="details" ng-model="block21" ng-click="block21=!block21"></button>
-
-> What is a string? A string is just a piece of text. To make a
-> string, you enclose it in quotation marks.
-> Look at the last example. A backslash is how we put a quotation mark
-> inside a string. Do not try using single quotes to make a string.
-{: ng-show="block21" .description}
-
-> Reference: [String](http://clojurebridge.github.io/community-docs/docs/clojure/string/)
-{: ng-show="block21" .description}
-
-```clojure
-"Hello, World!"
-"This is a longer string that I wrote for purposes of an example."
-"Aubrey said, \"I think we should go to the Orange Julius.\""
-```
-</section>
-
-<section ng-controller="NarrativeController">
-### Booleans and nil
-{: .slide_title .slide}
-
-#### <button class="link" ng-bind-html="details" ng-model="block31" ng-click="block31=!block31"></button>
-
->A boolean is a true or false value, and you type them just like that,
->`true` and `false`. Often in programming, we need to ask a true or
->false question, like "Is this class in the current semester?" or "Is
->this person's birthday today?" When we ask those questions, we get a
->boolean back.
-{: ng-show="block31" .description}
-
-> There is another value `nil`, which behaves like a boolean in terms
-> of __truthiness__.
-> But, `nil` means no value at all and not a boolean
-{: ng-show="block31" .description}
-
-> Reference: [Truthiness](http://clojurebridge.github.io/community-docs/docs/clojure/truthiness/)
-{: ng-show="block31" .description}
-
-
-```clojure
-true
-false
-nil
-```
-</section>
-
-<section ng-controller="NarrativeController">
-### Keywords
-{: .slide_title .slide}
-
-#### <button class="link" ng-bind-html="details" ng-model="block41" ng-click="block41=!block41"></button>
-
-> Keywords are the strangest of the basic value types. Some computer
-> languages have similar one. However, keywords don’t have a real
-> world analog like numbers, strings, or booleans.
-> You can think of them as a special type of string, one that’s used for
-> labels. They are often used as keys of key-value pair for maps (data
-> structure; will learn later).
-{: ng-show="block41" .description}
-
-
-```clojure
-:trinity
-:first
-:last
-```
-</section>
-
-<section ng-controller="NarrativeController">
 ### Numbers
 
 #### Integers <button class="link" ng-bind-html="details" ng-model="block81" ng-click="block81=!block81"></button>
@@ -207,7 +134,7 @@ Prefix: (+ (- (+ (+ 1 (/ (* 2 3) 4)) 5) (/ (* 6 7) 8)) 9)
 </section>
 
 <section ng-controller="NarrativeController">
-### Why prefix is better?
+### The benefits of prefix notation
 
 #### Explicit precedence <button class="link" ng-bind-html="details" ng-model="block131" ng-click="block131=!block131"></button>
 
@@ -254,6 +181,78 @@ Prefix: (+ 1 2 3 4 5 6 7 8 9)
 ```
 </section>
 
+<section ng-controller="NarrativeController">
+### Strings
+{: .slide_title .slide}
+
+#### <button class="link" ng-bind-html="details" ng-model="block21" ng-click="block21=!block21"></button>
+
+> What is a string? A string is just a piece of text. To make a
+> string, you enclose it in quotation marks.
+> Look at the last example. A backslash is how we put a quotation mark
+> inside a string. Do not try using single quotes to make a string.
+{: ng-show="block21" .description}
+
+> Reference: [String](http://clojurebridge.github.io/community-docs/docs/clojure/string/)
+{: ng-show="block21" .description}
+
+```clojure
+"Hello, World!"
+"This is a longer string that I wrote for purposes of an example."
+"Aubrey said, \"I think we should go to the Orange Julius.\""
+```
+</section>
+
+<section ng-controller="NarrativeController">
+### Booleans and nil
+{: .slide_title .slide}
+
+#### <button class="link" ng-bind-html="details" ng-model="block31" ng-click="block31=!block31"></button>
+
+>A boolean is a true or false value, and you type them just like that,
+>`true` and `false`. Often in programming, we need to ask a true or
+>false question, like "Is this class in the current semester?" or "Is
+>this person's birthday today?" When we ask those questions, we get a
+>boolean back.
+{: ng-show="block31" .description}
+
+> There is another value `nil`, which behaves like a boolean in terms
+> of __truthiness__.
+> But, `nil` means no value at all and not a boolean
+{: ng-show="block31" .description}
+
+> Reference: [Truthiness](http://clojurebridge.github.io/community-docs/docs/clojure/truthiness/)
+{: ng-show="block31" .description}
+
+
+```clojure
+true
+false
+nil
+```
+</section>
+
+<section ng-controller="NarrativeController">
+### Keywords
+{: .slide_title .slide}
+
+#### <button class="link" ng-bind-html="details" ng-model="block41" ng-click="block41=!block41"></button>
+
+> Keywords are the strangest of the basic value types. Some computer
+> languages have similar one. However, keywords don’t have a real
+> world analog like numbers, strings, or booleans.
+> You can think of them as a special type of string, one that’s used for
+> labels. They are often used as keys of key-value pair for maps (data
+> structure; will learn later).
+{: ng-show="block41" .description}
+
+
+```clojure
+:forename
+:surname
+:date-of-birth
+```
+</section>
 
 <section ng-controller="NarrativeController">
 ## Assignment: `def`
@@ -305,16 +304,15 @@ average-fruit-amount
 <section>
 #### EXERCISE 1: Basic arithmetic
 
-* Take your height in feet and inches and convert it to inches using arithmetic in Clojure.
-* Then convert that to centimeters. There are 2.54 centimeters in an inch.
-* Lastly, ask two people near you for their height in centimeters. Find the average of your heights.
+* How many minutes have elapsed since you arrived at the workshop today?
+* Convert this value from minutes to seconds.
 </section>
 
 <section>
-#### EXERCISE 2 [BONUS]: Convert back to feet and inches
+#### EXERCISE 2 [BONUS]: Minutes and seconds
 
-* Convert that average back to feet and inches.
-* The feet and the inches will be separate numbers.
+* Convert 1000 seconds to minutes and seconds.
+* The minutes and the seconds will be separate numbers.
 * `(quot x y)` will give you the whole number part of x divided by y.
 * `(rem x y)` will give you the remainder of x divided by y.
 </section>
